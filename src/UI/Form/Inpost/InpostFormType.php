@@ -54,6 +54,7 @@ class InpostFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => null,
             'postal_code' => null,
+            'allow_extra_fields' => true,
         ]);
     }
 }
