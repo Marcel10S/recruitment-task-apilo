@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/home/marcello/Programing/recruitment-task-apilo/phpunit.xml.dist" tests="4" assertions="11" errors="0" failures="0" skipped="0" time="0.008960">
+    <testsuite name="Unit Tests" tests="4" assertions="11" errors="0" failures="0" skipped="0" time="0.008960">
+      <testsuite name="App\Tests\Inpost\InpostClientTest" file="/home/marcello/Programing/recruitment-task-apilo/tests/Inpost/InpostClientTest.php" tests="2" assertions="5" errors="0" failures="0" skipped="0" time="0.008378">
+        <testcase name="testGetInpostDataSuccess" file="/home/marcello/Programing/recruitment-task-apilo/tests/Inpost/InpostClientTest.php" line="26" class="App\Tests\Inpost\InpostClientTest" classname="App.Tests.Inpost.InpostClientTest" assertions="2" time="0.007176"/>
+        <testcase name="testGetInpostDataFailure" file="/home/marcello/Programing/recruitment-task-apilo/tests/Inpost/InpostClientTest.php" line="64" class="App\Tests\Inpost\InpostClientTest" classname="App.Tests.Inpost.InpostClientTest" assertions="3" time="0.001203"/>
+      </testsuite>
+      <testsuite name="App\Tests\Inpost\InpostDataProviderTest" file="/home/marcello/Programing/recruitment-task-apilo/tests/Inpost/InpostDataProviderTest.php" tests="2" assertions="6" errors="0" failures="0" skipped="0" time="0.000581">
+        <testcase name="testGetInpostDataSuccess" file="/home/marcello/Programing/recruitment-task-apilo/tests/Inpost/InpostDataProviderTest.php" line="24" class="App\Tests\Inpost\InpostDataProviderTest" classname="App.Tests.Inpost.InpostDataProviderTest" assertions="3" time="0.000484"/>
+        <testcase name="testGetInpostDataFailure" file="/home/marcello/Programing/recruitment-task-apilo/tests/Inpost/InpostDataProviderTest.php" line="92" class="App\Tests\Inpost\InpostDataProviderTest" classname="App.Tests.Inpost.InpostDataProviderTest" assertions="3" time="0.000098"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

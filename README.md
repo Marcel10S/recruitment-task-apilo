@@ -17,3 +17,8 @@ php bin/console inpost:deserialize points Pabianice
 
 ## How to visit form page 
 Go to http://localhost:81/inpost/list
+
+## How to run Unit Tests
+```shell
+./vendor/bin/phpunit
+```
