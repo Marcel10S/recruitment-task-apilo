@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Command\Inpost;
+namespace App\Infrastructure\Integrations\Inpost\Command;
 
-use GuzzleHttp\Client;
-use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use App\Infrastructure\Integrations\Inpost\Provider\InpostDataProvider;
 
 #[AsCommand(
     name: 'inpost:deserialize',
@@ -15,11 +15,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class Deserialize extends Command
 {
-    private Client $client;
-
-    public function __construct() {
-        $this->client = new Client();
-
+    public function __construct(
+        private readonly InpostDataProvider $inpostDataProvider,
+    ) {
         parent::__construct();
     }
 
@@ -35,18 +33,22 @@ class Deserialize extends Command
         $name = $input->getArgument('name');
         $city = $input->getArgument('city');
 
+        if (empty($name) || empty($city)) {
+            $output->writeln("Name and City cannot be empty");
+
+            return Command::FAILURE;
+        }
+
         try {
-            $response = $this->client->request("get", sprintf("https://api-shipx-pl.easypack24.net/v1/%s?city=%s", $name , $city));
-            $rawResponse = $response->getBody()->getContents();
-            $jsonResponse = json_decode($rawResponse, true);
+            $dto = $this->inpostDataProvider->getInpostData($name, $city);
         } catch (\Exception $exception) {
             $output->writeln($exception->getMessage());
 
             return Command::FAILURE;
         }
 
-        dd($jsonResponse);
-
+        $jsonOutput = json_encode($dto, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        $output->writeln($jsonOutput);
 
         return Command::SUCCESS;
     }

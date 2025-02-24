@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                margin: 20px;
+            }
+            form {
+                max-width: 400px;
+                padding: 20px;
+                background: #fff;
+                border-radius: 8px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            }
+            input, select, textarea {
+                width: 100%;
+                padding: 10px;
+                margin: 5px 0;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+            button {
+                width: 100%;
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Address Form</h1>
+        {{ form_start(form) }}
+            {{ form_row(form.street) }}
+            {{ form_row(form.city) }}
+            {{ form_row(form.postal_code) }}
+            {% if form.name is defined %}
+                {{ form_row(form.name) }}
+            {% endif %}
+            <button type="submit">Submit</button>
+        {{ form_end(form) }}
+
+        {% if result is not null and result.items is not empty %}
+            {% for item in result.items %}
+                <p>
+                    Puntk {{ loop.index }}:
+                    {{ item.name }} 
+                    {{ item.address.street }} 
+                    {{ item.address.buildingNumber }} 
+                    {{ item.address.postCode }} 
+                    {{ item.address.city }}
+                </p>
+            {% endfor %}
+        {% else %}
+            <p>Brak dostępnych adresów.</p>
+        {% endif %}
+    </body>
+</html>
