@@ -8,6 +8,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class InpostDataProvider
 {
+    const API_POINT_NAME = "points";
+
     public function __construct(
         private readonly SerializerInterface $serializer,
         private readonly Client $client,

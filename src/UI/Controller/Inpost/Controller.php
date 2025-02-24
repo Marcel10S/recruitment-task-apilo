@@ -15,8 +15,6 @@ use App\Infrastructure\Integrations\Inpost\Provider\InpostDataProvider;
 #[Route(path: '/inpost', name: 'inpost_')]
 class Controller extends AbstractController
 {
-    const API_POINT_NAME = "points";
-
     public function __construct(
         private readonly InpostDataProvider $inpostDataProvider,
     ) {}
@@ -24,12 +22,15 @@ class Controller extends AbstractController
     #[Route(path: '/list', name: 'list', methods: ['GET', 'POST'])]
     public function list(Request $request): Response
     {
-        $form = $this->createForm(InpostFormType::class);
+        $postalCode = $request->request->all()['inpost_form']['postal_code'] ?? null;
+        $form = $this->createForm(InpostFormType::class, null, [
+            'postal_code' => $postalCode,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $result = $this->inpostDataProvider->getInpostData(static::API_POINT_NAME, $data['city']);
+            $result = $this->inpostDataProvider->getInpostData(InpostDataProvider::API_POINT_NAME, $data['city']);
         }
 
         return $this->render('Inpost/list.html.twig', [

@@ -8,7 +8,8 @@ use Psr\Log\LoggerInterface;
 
 class Client
 {
-    const API_URL_FORMAT = "https://api-shipx-pl.easypack24.net/v1/%s?city=%s";
+    // Nikt nic nie wspominał o paginacij więc tymczasowo dodam max limit punktów :D
+    const API_URL_FORMAT = "https://api-shipx-pl.easypack24.net/v1/%s?city=%s&per_page=500";
 
     private GuzzleClient $client;
 

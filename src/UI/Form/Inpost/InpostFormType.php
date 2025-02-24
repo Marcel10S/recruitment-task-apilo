@@ -40,6 +40,12 @@ class InpostFormType extends AbstractType
                 ],
             ]);
 
+            if (!empty($options['postal_code']) && $options['postal_code'] === '01-234') {
+                $builder->add('name', TextType::class, [
+                    'required' => false,
+                ]);
+            }
+
             $builder->get('city')->addModelTransformer(new CityTransformer());
     }
 
@@ -47,6 +53,7 @@ class InpostFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => null,
+            'postal_code' => null,
         ]);
     }
 }
