@@ -2,6 +2,7 @@
 
 namespace App\UI\Controller\Inpost;
 
+use App\Infrastructure\Integrations\Inpost\Client;
 use App\UI\Form\Inpost\InpostFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +31,7 @@ class Controller extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $result = $this->inpostDataProvider->getInpostData(InpostDataProvider::API_POINT_NAME, $data['city']);
+            $result = $this->inpostDataProvider->getInpostData(Client::API_POINT_NAME, ['city' => $data['city']]);
         }
 
         return $this->render('Inpost/list.html.twig', [

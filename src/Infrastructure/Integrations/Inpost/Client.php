@@ -8,8 +8,9 @@ use Psr\Log\LoggerInterface;
 
 class Client
 {
-    // Nikt nic nie wspominał o paginacij więc tymczasowo dodam max limit punktów :D
-    const API_URL_FORMAT = "https://api-shipx-pl.easypack24.net/v1/%s?city=%s&per_page=500";
+    // Nikt nic nie wspominał o paginacij więc tymczasowo zostawiam domyślne
+    const API_URL_FORMAT = "https://api-shipx-pl.easypack24.net/v1/%s?%s";
+    const API_POINT_NAME = "points";
 
     private GuzzleClient $client;
 
@@ -18,10 +19,16 @@ class Client
         $this->client = new GuzzleClient();
     }
 
-    public function getInpostData(string $name, string $city): string
+    public function generateParams($params): string
+    {
+        return http_build_query($params);
+    }
+    
+
+    public function getInpostData(string $name, array $params = []): string
     {
         try {
-            $response = $this->client->request("GET", sprintf(self::API_URL_FORMAT, $name, $city));
+            $response = $this->client->request("GET", sprintf(self::API_URL_FORMAT, $name, $this->generateParams($params)));
 
             return $response->getBody()->getContents();
         } catch (\Exception $exception) {

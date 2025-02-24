@@ -40,7 +40,7 @@ class Deserialize extends Command
         }
 
         try {
-            $dto = $this->inpostDataProvider->getInpostData($name, $city);
+            $dto = $this->inpostDataProvider->getInpostData($name, ['city' => $city]);
         } catch (\Exception $exception) {
             $output->writeln($exception->getMessage());
 

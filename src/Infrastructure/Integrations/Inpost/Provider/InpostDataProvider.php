@@ -8,18 +8,16 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class InpostDataProvider
 {
-    const API_POINT_NAME = "points";
-
     public function __construct(
         private readonly SerializerInterface $serializer,
         private readonly Client $client,
     ) {
     }
 
-    public function getInpostData(string $name, string $city) : InpostResponseDTO 
+    public function getInpostData(string $name, array $params = []) : InpostResponseDTO 
     {
         try {
-            $rawResponse = $this->client->getInpostData($name, $city);
+            $rawResponse = $this->client->getInpostData($name, $params);
             return $this->serializer->deserialize($rawResponse, InpostResponseDTO::class, 'json');
         } catch (\Exception $exception) {
             throw $exception;
