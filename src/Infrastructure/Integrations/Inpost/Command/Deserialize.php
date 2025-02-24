@@ -7,6 +7,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use App\Infrastructure\Integrations\Inpost\DTO\InpostResponseDTO;
 use App\Infrastructure\Integrations\Inpost\Provider\InpostDataProvider;
 
 #[AsCommand(
@@ -40,7 +41,7 @@ class Deserialize extends Command
         }
 
         try {
-            $dto = $this->inpostDataProvider->getInpostData($name, ['city' => $city]);
+            $dto = $this->inpostDataProvider->getInpostData($name, InpostResponseDTO::class, ['city' => $city]);
         } catch (\Exception $exception) {
             $output->writeln($exception->getMessage());
 

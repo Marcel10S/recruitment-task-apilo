@@ -14,11 +14,11 @@ class InpostDataProvider
     ) {
     }
 
-    public function getInpostData(string $name, array $params = []) : InpostResponseDTO 
+    public function getInpostData(string $name, string $objectClass, array $params = []) : InpostResponseDTO 
     {
         try {
             $rawResponse = $this->client->getInpostData($name, $params);
-            return $this->serializer->deserialize($rawResponse, InpostResponseDTO::class, 'json');
+            return $this->serializer->deserialize($rawResponse, $objectClass, 'json');
         } catch (\Exception $exception) {
             throw $exception;
         }
