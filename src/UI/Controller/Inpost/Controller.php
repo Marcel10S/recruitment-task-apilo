@@ -2,16 +2,16 @@
 
 namespace App\UI\Controller\Inpost;
 
+use App\Infrastructure\Integrations\Inpost\Client\Client;
+use App\Infrastructure\Integrations\Inpost\DTO\InpostParamsDataDTO;
+use App\Infrastructure\Integrations\Inpost\Provider\InpostDataProvider;
 use App\UI\Form\Inpost\InpostFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Infrastructure\Integrations\Inpost\Client;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use App\Infrastructure\Integrations\Inpost\DTO\InpostResponseDTO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Infrastructure\Integrations\Inpost\Provider\InpostDataProvider;
 
 #[AsController]
 #[Route(path: '/inpost', name: 'inpost_')]
@@ -32,7 +32,14 @@ class Controller extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $result = $this->inpostDataProvider->getInpostData(Client::API_POINT_NAME, InpostResponseDTO::class, ['city' => $data['city']]);
+            try {
+                $result = $this->inpostDataProvider->getInpostData(new InpostParamsDataDTO(
+                        Client::API_POINT_NAME, InpostResponseDTO::class, ['city' => $data['city']])
+                );
+            } catch (\Exception $e) {
+                $result = null;
+            }
+
         }
 
         return $this->render('Inpost/list.html.twig', [

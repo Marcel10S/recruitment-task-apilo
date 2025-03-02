@@ -4,18 +4,18 @@ namespace App\Infrastructure\Integrations\Inpost\DTO;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class InpostResponseDTO
+readonly class InpostResponseDTO
 {
     public function __construct(
         #[SerializedName("count")]
-        public readonly int $count,
+        public int $count,
         #[SerializedName("page")]
-        public readonly int $pages,
+        public int $pages,
         #[SerializedName("total_pages")]
-        public readonly int $totalPages,
+        public int $totalPages,
         /** @var InpostItemDTO[] */
         #[SerializedName("items")]
-        public readonly array $items
+        public array $items
     ) {
     }
 }

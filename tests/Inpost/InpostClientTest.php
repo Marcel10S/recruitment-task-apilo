@@ -2,7 +2,7 @@
 
 namespace App\Tests\Inpost;
 
-use App\Infrastructure\Integrations\Inpost\Client;
+use App\Infrastructure\Integrations\Inpost\Client\Client;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Response;

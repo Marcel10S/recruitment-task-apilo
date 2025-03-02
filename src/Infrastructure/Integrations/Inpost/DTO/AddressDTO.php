@@ -4,21 +4,21 @@ namespace App\Infrastructure\Integrations\Inpost\DTO;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class AddressDTO
+readonly class AddressDTO
 {
     public function __construct(
         #[SerializedName("city")]
-        public readonly string $city,
+        public string $city,
         #[SerializedName("province")]
-        public readonly string $province,
+        public string $province,
         #[SerializedName("post_code")]
-        public readonly string $postCode,
+        public string $postCode,
         #[SerializedName("street")]
-        public readonly string $street,
+        public string $street,
         #[SerializedName("building_number")]
-        public readonly string $buildingNumber,
+        public string $buildingNumber,
         #[SerializedName("flat_number")]
-        public readonly ?string $flatNumber
+        public ?string $flatNumber
     ) {
     }
 }

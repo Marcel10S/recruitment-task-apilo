@@ -2,7 +2,7 @@
 
 namespace App\Tests\Inpost;
 
-use App\Infrastructure\Integrations\Inpost\Client;
+use App\Infrastructure\Integrations\Inpost\Client\Client;
 use App\Infrastructure\Integrations\Inpost\DTO\InpostResponseDTO;
 use App\Infrastructure\Integrations\Inpost\Provider\InpostDataProvider;
 use PHPUnit\Framework\TestCase;
