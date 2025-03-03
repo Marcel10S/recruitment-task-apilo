@@ -2,13 +2,14 @@
 
 namespace App\Infrastructure\Integrations\Inpost\Command;
 
+use App\Infrastructure\Integrations\Inpost\Provider\InpostDataProvider;
+use App\Infrastructure\Integrations\Inpost\DTO\InpostParamsDataDTO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use App\Infrastructure\Integrations\Inpost\DTO\InpostResponseDTO;
-use App\Infrastructure\Integrations\Inpost\Provider\InpostDataProvider;
 
 #[AsCommand(
     name: 'inpost:deserialize',
@@ -41,7 +42,9 @@ class Deserialize extends Command
         }
 
         try {
-            $dto = $this->inpostDataProvider->getInpostData($name, InpostResponseDTO::class, ['city' => $city]);
+            $dto = $this->inpostDataProvider->getInpostData(
+                new InpostParamsDataDTO($name, InpostResponseDTO::class, ['city' => $city])
+            );
         } catch (\Exception $exception) {
             $output->writeln($exception->getMessage());
 

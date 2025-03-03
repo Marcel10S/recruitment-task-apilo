@@ -1,0 +1,2 @@
+parameters:
+  inpost_api_url: '%env(APP_INPOST_API_URL)%'
