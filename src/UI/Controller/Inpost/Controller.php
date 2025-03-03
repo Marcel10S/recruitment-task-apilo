@@ -24,10 +24,7 @@ class Controller extends AbstractController
     #[Route(path: '/list', name: 'list', methods: ['GET', 'POST'])]
     public function list(Request $request): Response
     {
-        $postalCode = $request->request->all()['inpost_form']['postal_code'] ?? null;
-        $form = $this->createForm(InpostFormType::class, null, [
-            'postal_code' => $postalCode,
-        ]);
+        $form = $this->createForm(InpostFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

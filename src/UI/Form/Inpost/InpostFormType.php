@@ -6,6 +6,8 @@ namespace App\UI\Form\Inpost;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Validator\Constraints\Regex;
 use App\UI\Form\Inpost\Transformer\CityTransformer;
 use Symfony\Component\Validator\Constraints\Length;
@@ -40,20 +42,24 @@ class InpostFormType extends AbstractType
                 ],
             ]);
 
-            if (!empty($options['postal_code']) && $options['postal_code'] === '01-234') {
-                $builder->add('name', TextType::class, [
+        $builder->get('city')->addModelTransformer(new CityTransformer());
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            if (isset($data['postal_code']) && $data['postal_code'] === '01-234') {
+                $form->add('name', TextType::class, [
                     'required' => false,
                 ]);
             }
-
-            $builder->get('city')->addModelTransformer(new CityTransformer());
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => null,
-            'postal_code' => null,
             'allow_extra_fields' => true,
         ]);
     }

@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 
 class Client implements InpostClientInterface
 {
-    const string API_POINT_NAME = "points";
+    const API_POINT_NAME = "points";
 
     private GuzzleClient $client;
 
